@@ -9,7 +9,7 @@ const mapContainerStyle = {
 
 const MapSelection = ({ onLocationSelect }) => {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyAhaEqJHyuSFlQAQ_iJfWKlaF8EUBeAgK0",
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,  // Import from .env
   });
 
   const [selectedPosition, setSelectedPosition] = useState({
@@ -44,12 +44,6 @@ const MapSelection = ({ onLocationSelect }) => {
     }
   };
 
-  const handleShareLocation = () => {
-    const shareURL = `https://www.google.com/maps?q=${selectedPosition.lat},${selectedPosition.lng}`;
-    navigator.clipboard.writeText(shareURL);
-    alert("Location URL copied to clipboard!");
-  };
-
   if (!isLoaded) return <Typography>Loading...</Typography>;
 
   return (
@@ -73,19 +67,8 @@ const MapSelection = ({ onLocationSelect }) => {
       >
         Confirm Location
       </Button>
-      <Button
-        variant="outlined"
-        color="secondary"
-        onClick={handleShareLocation}
-        sx={{ mt: 2, ml: 2 }}
-      >
-        Share Location
-      </Button>
     </Box>
   );
 };
 
 export default MapSelection;
-
-
-// AIzaSyAhaEqJHyuSFlQAQ_iJfWKlaF8EUBeAgK0
